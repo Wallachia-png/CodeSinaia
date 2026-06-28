@@ -1,8 +1,8 @@
 import random
 
-COUNT = 32
-MIN_VAL = -500
-MAX_VAL = 500
+COUNT = 10
+MIN_VAL = -50
+MAX_VAL = 50
 
 def format_triplet(triplet):
     first = True
@@ -37,4 +37,9 @@ if __name__ == "__main__":
 
     print(nums)
     print("---- Triplets ----")
-    print_triplets(nums)
+    zero_triplets = print_triplets(nums)
+    n = len(nums)
+    total_triplets = n * (n-1) * (n-2) / 6
+    zero_pct = int(zero_triplets / total_triplets * 10000) / 100
+    print(f"---- Zero triplets {zero_triplets}: {zero_pct}% of {total_triplets}")
+
