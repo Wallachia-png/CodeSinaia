@@ -45,6 +45,7 @@ class Point:
 		"""
 		return math.sqrt((self._x - other._x)**2 + (self._y - other._y)**2)
 
+print(f"Point.py: __name__ = {__name__}")
 if __name__ == "__main__":
 	orig = Point("Origin", 0, 0)
 	p1 = Point("A", 10, 10)

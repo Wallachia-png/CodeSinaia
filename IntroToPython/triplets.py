@@ -20,7 +20,6 @@ COUNT = 10
 MIN_VAL = -50
 MAX_VAL = 50
 
-
 def format_triplet(triplet):
     """Format an indexed triplet as a printable line and return its sum.
     Args:
