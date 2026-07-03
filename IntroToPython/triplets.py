@@ -39,33 +39,33 @@ def format_triplet(triplet):
     line += f" = {total:<4d}"
     return line, total
 
-def print_triplets(nums):
-    """Print all zero-sum triplets from nums and return how many were found.
+def print_triplets(numbers, value=0):
+    """Print all zero-sum triplets from numbers and return how many were found.
     Args:
-        nums: List of integers to scan.
+        numbers: List of integers to scan.
     Returns:
         The number of printed triplets with sum equal to 0.
     """
-    count = len(nums)
+    count = len(numbers)
     count_triplets = 0
     for i in range(count):
         for j in range(i+1, count):
             for k in range(j+1, count):
-                if nums[i] + nums[j] + nums[k] == 0:
-                    triplet = [(i, nums[i]), (j, nums[j]), (k, nums[k])]
+                if numbers[i] + numbers[j] + numbers[k] == value:
+                    triplet = [(i, numbers[i]), (j, numbers[j]), (k, numbers[k])]
                     line, _ = format_triplet(triplet)
                     print(line)
                     count_triplets += 1
     return count_triplets
 
-def total_triplets(nums):
-    """Return the number of distinct index triplets that can be formed from nums.
+def total_triplets(numbers):
+    """Return the number of distinct index triplets that can be formed from numbers.
     Args:
-        nums: List of values; equal values at different indexes are allowed.
+        numbers: List of values; equal values at different indexes are allowed.
     Returns:
-        The combinations count C(n, 3), where n is len(nums).
+        The combinations count C(n, 3), where n is len(numbers).
     """
-    n = len(nums)
+    n = len(numbers)
 
     def multiply3(num):
         """Return num * (num - 1) * (num - 2).
@@ -87,6 +87,6 @@ if __name__ == "__main__":
     total_triplets = total_triplets(nums)
 
     print("---- Zero-sum triplets ----")
-    zero_triplets = print_triplets(nums)
+    zero_triplets = print_triplets(numbers=nums)
     zero_pct = int(zero_triplets / total_triplets * 10000) / 100
     print(f"---- Zero-sum triplets: {zero_triplets} = {zero_pct}% of {total_triplets}")

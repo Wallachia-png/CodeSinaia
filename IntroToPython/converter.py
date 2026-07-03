@@ -47,7 +47,7 @@ class Converter:
 			point_x = self.__parse_coord("X", line.split("x=", 1)[1].split(",", 1)[0])
 			point_y = self.__parse_coord("Y", line.split("y=", 1)[1].split(")", 1)[0])
 			return Point(point_name, point_x, point_y)
-		except (IndexError, ValueError) as e:
+		except (IndexError,ValueError) as e:
 			return f"Point {token}: {str(e)}"
 	# endregion - private parsing methods
 
@@ -119,15 +119,12 @@ class Converter:
 			record_count = struct.unpack("<I", f.read(4))[0]
 			for _ in range(record_count):
 				name_bytes = bytearray()
-				while True:
-					ch = f.read(1)
-					if ch == b"\x00":
-						break
+				ch = f.read(1)
+				while ch != b"\x00":
 					name_bytes.extend(ch)
-
+					ch = f.read(1)
 				x, y = struct.unpack("<dd", f.read(16))
-				point_name = self.__parse_name(name_bytes.decode("utf-8"))
-				self.__data.append(Point(point_name, x, y))
+				self.__data.append(Point(name_bytes.decode("utf-8"), x, y))
 	# endregion - private read methods
 
 	# region - private write methods
@@ -143,7 +140,7 @@ class Converter:
 				json_data = []
 				for point in self.__data:
 					json_data.append({"name": point._name, "x": point._x, "y": point._y })
-				with open(self._output_file, "w", encoding="utf-8", newline="") as f:
+				with open(self._output_file, mode="w", encoding="utf-8") as f:
 					json.dump(json_data, f, indent=2)
 			case ".bin":
 				with open(self._output_file, "wb") as f:
