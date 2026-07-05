@@ -163,7 +163,7 @@ class Converter:
 	# Pipeline runner: Data transformation from input to output
 	def run(self):
 		self.__read_points()
-		log = [f"Converted {len(self.__data) if self.__data else 0} Points. Failed parsing {len(self.__errors) if self.__errors else 0}."]
+		log = [f"Converted {len(self.__data)} Points. Failed parsing {len(self.__errors)}."]
 		if self.__errors:
 			log.extend(self.__errors)
 		self.__write_points()
