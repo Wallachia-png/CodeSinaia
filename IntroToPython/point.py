@@ -35,7 +35,7 @@ class Point:
 		return self._x == other._x and self._y == other._y if isinstance(other, Point) else False
 
 	# Compute straight line distance to another point.
-	def distance(self, other):
+	def distance(self, other) -> int:
 		"""
 		Return the Euclidean distance from this point to another point.
 		Args:

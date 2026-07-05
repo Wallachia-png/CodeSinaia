@@ -40,11 +40,11 @@ def format_triplet(triplet):
     return line, total
 
 def print_triplets(numbers, value=0):
-    """Print all zero-sum triplets from numbers and return how many were found.
+    """Print all triplets from numbers adding up to value and return how many were found.
     Args:
         numbers: List of integers to scan.
     Returns:
-        The number of printed triplets with sum equal to 0.
+        The number of printed triplets with sum equal to value.
     """
     count = len(numbers)
     count_triplets = 0
