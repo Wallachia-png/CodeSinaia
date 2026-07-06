@@ -1,9 +1,9 @@
+from pathlib import Path
 import random
-
 import numpy
 from point import Point
 
-DATA_FILE = "dots.tsv"
+DATA_FILE = Path(__file__).with_name("dots.tsv")
 ORIGIN = Point("ORIGIN", 0, 0)
 NPOINTS_AFAR = 10
 EPICENTER_RADIUS = 100
@@ -46,16 +46,29 @@ def move_point(point) -> bool:
 # gets the nAfar points fartherest away from the origin
 def get_points_afar(points, nAfar) -> list[Point]:
     maxPoints = []
-    while len(points) > 0 and len(maxPoints) < NPOINTS_AFAR:
-        maxPoint = None
-        while maxPoint != points[0]:
+    # as long as there are still points and maxPoints to extract ...
+    while len(points) > 0 and len(maxPoints) < nAfar:
+        # assume the first is our max
+        maxPoint = points.pop(0)
+        # and rotate and check the ones left in the points queue...
+        nPointsToCheck = len(points)
+        while nPointsToCheck > 0:
+            # extract the point in the front of the queue ... and
             point = points.pop(0)
-            if maxPoint is None or maxPoint.distance(ORIGIN) < point.distance(ORIGIN):
+            # if it's a new maximum..
+            if maxPoint.distance(ORIGIN) < point.distance(ORIGIN):
+                # swap it with the previous maximum
+                points.append(maxPoint)
                 maxPoint = point
-            points.append(point)
-        maxPoints.append(points.pop(0))
+            else:
+                # otherwise, put the point back to the end of the queue
+                points.append(point)
+            nPointsToCheck -= 1
+        # now, maxPoint contains another maximum to be added to the result
+        maxPoints.append(maxPoint)
     return maxPoints
 
+# Main entry point in the program
 if __name__ == "__main__":
     points = load_data(DATA_FILE)
 
