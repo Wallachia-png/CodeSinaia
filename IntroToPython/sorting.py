@@ -1,6 +1,4 @@
 from pathlib import Path
-import random
-import numpy
 from point import Point
 
 ORIGIN = Point("Origin", 0, 0)
