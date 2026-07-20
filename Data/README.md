@@ -1,1 +1,0 @@
-Folder hosting data files. Given the size of the data, these files cannot / shall not be uploaded to GitHub. Data files are to be copied locally from different cloud location.
